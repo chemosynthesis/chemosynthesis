@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - HPGS School</title>
+    <link rel="stylesheet" href="About Us.css">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <img src="logo-removebg-preview.png" alt="HPGS Logo" class="logo">
+            <nav>
+                <ul>
+                    <li><a href="project.html">Home</a></li>
+                    <li><a href="About Us.html">About Us</a></li>
+                    <li><a href="puzzle.html">Chemosynthesis Info</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Video background container -->
+    <div class="video-container">
+        <video autoplay muted loop class="background-video">
+            <source src="videoplayback (10).mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <main class="main-content">
+            <h1 class="main-text">Our Team</h1>
+            <p class="team-intro">Meet the amazing students of HPGS, working together on an incredible project about Chemosynthesis!</p>
+            
+            <!-- Team Members -->
+            <div class="team-members">
+                <div class="member">
+                    <h3>Huzaifa Siddiqui</h3>
+                    <p>Role: Website/Game Programmer</p>
+                    <!-- Pop-up modal -->
+                    <div class="member-modal">
+                        <p>Huzaifa is responsible for coding and programming the website and games used in the project.</p>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <h3>Imad Uddin</h3>
+                    <p>Role: Video Animator</p>
+                    <div class="member-modal">
+                        <p>Imad as a video animator, collaborates with Ibrahim to bring the underwater world of Chemosynthesis to life by animating.</p>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <h3>Ibrahim Khan</h3>
+                    <p>Role: Video Animator</p>
+                    <div class="member-modal">
+                        <p>Ibrahim is the as a animator, collaboates with Imad to creating stunning visuals and animations for the project.</p>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <h3>Khawaja Muhammad Mahad</h3>
+                    <p>Role: Story Writer</p>
+                    <div class="member-modal">
+                        <p>Khawaja has contributed to crafting the storyline and plot for the project’s content.</p>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <h3>Umar Ahmed</h3>
+                    <p>Role: Content Provider</p>
+                    <div class="member-modal">
+                        <p>Umar has gathered important content for the team, ensuring accuracy and creativity.</p>
+                    </div>
+                </div>
+
+                <div class="member">
+                    <h3>Rayan Fahad</h3>
+                    <p>Role: Story Writer</p>
+                    <div class="member-modal">
+                        <p>Rayan contributed to the storyline, providing imaginative input for the project.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Header background transition on scroll
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('.header');
+            header.classList.toggle('scrolled', window.scrollY > 0);
+        });
+
+        // Member animation on page load
+        const members = document.querySelectorAll('.member');
+        members.forEach((member, index) => {
+            member.style.transitionDelay = `${index * 0.1}s`;
+            member.classList.add('fadeIn');
+        });
+    </script>
+</body>
+
+</html>

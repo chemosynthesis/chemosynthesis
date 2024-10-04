@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemosynthesis Quiz</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="logo-removebg-preview.png" alt="Chemosynthesis Quiz Logo" class="logo">
+        <ul class="nav-links">
+            <li><a href="project.html">Home</a></li>
+            <li><a href="about us.html">About Us</a></li>
+            <li><a href="puzzle.html">Chemosynthesis Info</a></li>
+            <li><a href="quiz.html">Quiz</a></li>
+        </ul>
+        <div class="nav-toggle">&#9776;</div> <!-- Mobile menu toggle -->
+    </nav>
+
+    <!-- Welcome Page -->
+    <section id="welcome-page" class="container">
+        <h1>Welcome to the Chemosynthesis Quiz</h1>
+        <p>Test your knowledge about chemosynthesis and earn points!</p>
+        <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+    </section>
+
+    <!-- Quiz Page -->
+    <section id="quiz-page" class="container hidden"> <!-- Initially hidden -->
+        <div id="question-container">
+            <h2 id="question"></h2> <!-- Question text -->
+            <div id="options" class="options-container"></div> <!-- Container for options -->
+            <button class="hint-btn" onclick="showHint()">Hint</button> <!-- Button to show hint -->
+            <p id="hint" class="hidden"></p> <!-- Hint text -->
+            <div id="feedback" class="hidden" style="color: red;"></div> <!-- Feedback message -->
+        </div>
+        <div id="score-container">
+            <p>Score: <span id="score">0</span> Coins</p> <!-- Display score -->
+        </div>
+    </section>
+
+    <!-- End Page -->
+    <section id="end-page" class="container hidden"> <!-- Initially hidden -->
+        <h1>Quiz Completed!</h1>
+        <p>Your final score is: <span id="final-score">0</span> Coins</p> <!-- Display final score -->
+        <button onclick="restartQuiz()">Play Again</button> <!-- Button to restart quiz -->
+    </section>
+
+    <script>
+        const questions = [
+            {
+                question: "What is the primary energy source for organisms that perform chemosynthesis?",
+                options: ["Sunlight", "Chemical reactions", "Organic molecules", "Water"],
+                answer: "B",
+                hint: "Unlike photosynthesis, chemosynthesis relies on chemical reactions."
+            },
+            {
+                question: "Where is chemosynthesis most likely to occur?",
+                options: ["In forests", "In deep-sea hydrothermal vents", "On the surface of leaves", "In freshwater lakes"],
+                answer: "B",
+                hint: "Think about environments without sunlight."
+            },
+            {
+                question: "Which of the following organisms perform chemosynthesis?",
+                options: ["Plants", "Fungi", "Chemosynthetic bacteria", "Fish"],
+                answer: "C",
+                hint: "Consider organisms that live in environments without sunlight."
+            },
+            {
+                question: "Which compound is typically oxidized in chemosynthesis at deep-sea vents?",
+                options: ["Methane", "Carbon dioxide", "Hydrogen sulfide", "Oxygen"],
+                answer: "C",
+                hint: "This chemical is often found in volcanic areas."
+            },
+            {
+                question: "Chemosynthesis is similar to photosynthesis because both processes produce which of the following?",
+                options: ["Oxygen", "Glucose", "Sulfur", "Carbon dioxide"],
+                answer: "B",
+                hint: "Both processes create energy-rich molecules."
+            },
+            {
+                question: "Chemosynthesis occurs in environments where which of the following is absent?",
+                options: ["Water", "Light", "Chemicals", "Carbon dioxide"],
+                answer: "B",
+                hint: "If photosynthesis needs sunlight, what does chemosynthesis not require?"
+            },
+            {
+                question: "Which of the following is a byproduct of chemosynthesis involving hydrogen sulfide?",
+                options: ["Water", "Oxygen", "Sulfur", "Nitrogen"],
+                answer: "C",
+                hint: "When bacteria use hydrogen sulfide in chemosynthesis, they produce a substance associated with volcanic activity."
+            },
+            {
+                question: "Chemosynthesis helps sustain life in extreme environments by producing:",
+                options: ["Heat", "Organic compounds", "Inorganic gases", "Light energy"],
+                answer: "B",
+                hint: "The organisms that perform chemosynthesis need to create something that serves as food."
+            },
+            {
+                question: "Which of the following ecosystems is most dependent on chemosynthetic organisms?",
+                options: ["Coral reefs", "Rainforests", "Hydrothermal vent communities", "Grasslands"],
+                answer: "C",
+                hint: "Think about the environments that have no sunlight."
+            },
+            {
+                question: "Which of the following molecules is not directly involved in the chemosynthesis process?",
+                options: ["Hydrogen sulfide", "Methane", "Glucose", "Oxygen"],
+                answer: "D",
+                hint: "Consider which substances are essential for the chemosynthesis reactions."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let incorrectCount = 0;
+
+        function startQuiz() {
+            document.getElementById('welcome-page').classList.add('hidden');
+            document.getElementById('quiz-page').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const questionObj = questions[currentQuestionIndex];
+            document.getElementById('question').innerText = questionObj.question;
+            const optionsContainer = document.getElementById('options');
+            optionsContainer.innerHTML = ''; // Clear previous options
+            questionObj.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.classList.add('option-btn');
+                button.innerText = option;
+                button.onclick = () => selectAnswer(index); // Pass the index directly
+                optionsContainer.appendChild(button);
+            });
+            document.getElementById('hint').classList.add('hidden'); // Hide hint when a new question is displayed
+            document.getElementById('feedback').classList.add('hidden'); // Hide feedback initially
+        }
+
+        function selectAnswer(selectedIndex) {
+            const correctAnswerIndex = questions[currentQuestionIndex].answer.charCodeAt(0) - 65; // Convert letter to index
+            const feedbackDiv = document.getElementById('feedback'); // Get feedback div
+            feedbackDiv.classList.remove('hidden'); // Show feedback div
+
+            if (selectedIndex === correctAnswerIndex) {
+                score += 10;
+                document.getElementById('score').innerText = score;
+                feedbackDiv.innerText = ''; // Clear feedback message if correct
+            } else {
+                incorrectCount++;
+                feedbackDiv.innerText = "Incorrect! But don't worry, keep going!";
+            }
+
+            currentQuestionIndex++;
+            setTimeout(() => {
+                feedbackDiv.classList.add('hidden'); // Hide feedback message after a short delay
+                if (currentQuestionIndex < questions.length) {
+                    showQuestion();
+                } else {
+                    endQuiz();
+                }
+            }, 2000); // Wait 2 seconds before moving to the next question
+        }
+
+        function showHint() {
+            const hintText = questions[currentQuestionIndex].hint;
+            document.getElementById('hint').innerText = hintText;
+            document.getElementById('hint').classList.remove('hidden');
+        }
+
+        function endQuiz() {
+            document.getElementById('quiz-page').classList.add('hidden');
+            document.getElementById('end-page').classList.remove('hidden');
+            document.getElementById('final-score').innerText = score;
+            alert(`You answered ${incorrectCount} questions incorrectly. Your final score is ${score} Coins.`);
+        }3
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            incorrectCount = 0;
+            document.getElementById('score').innerText = score;
+            document.getElementById('end-page').classList.add('hidden');
+            document.getElementById('welcome-page').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>

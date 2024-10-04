@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemosynthesis - Plants</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;800&family=Sora:wght@600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Slider Icons (Optional) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" rel="stylesheet"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            font-family: 'Work Sans', sans-serif;
+            background-color: #011529;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Header Styles */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 120px;
+            background: transparent;
+            transition: background-color 0.5s ease, height 0.3s ease;
+            z-index: 1000;
+        }
+
+        .header.scrolled {
+            background-color: rgba(214, 203, 203, 0.8);
+            height: 100px;
+        }
+
+        .header .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .header .logo {
+            height: 100%;
+            max-height: 180px; /* Increased from 147px to 180px */
+            transition: height 0.3s ease;
+        }
+
+        .header.scrolled .logo {
+            height: 80px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 40px;
+            transition: transform 0.3s ease;
+        }
+
+        nav ul li a {
+            text-transform: uppercase;
+            color: #fff;
+            font-size: 18px;
+            padding: 15px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: color 0.3s ease, background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #fff;
+            color: #2c3e50;
+            transform: scale(1.1);
+        }
+
+        /* Hamburger Menu for Mobile */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: #ffffff;
+            margin: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            overflow: hidden;
+            z-index: 1; /* Ensure main content is above background */
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none; /* Prevent background from capturing clicks */
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .main-text {
+            position: relative;
+            z-index: 1;
+            font-size: 80px;
+            font-weight: 800;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            animation: glowing 1.5s infinite alternate;
+        }
+
+        .additional-text {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-block;
+            background-color: #308deb; /* Button background color */
+            color: #fff; /* Text color */
+            padding: 10px 20px; /* Padding around the text */
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Rounded corners */
+            font-size: 18px; /* Font size */
+            margin-top: 20px; /* Space above the button */
+            transition: background-color 0.3s ease, transform 0.3s ease; /* Animation for hover effect */
+            z-index: 2; /* Ensure button is above main content */
+        }
+
+        .btn:hover {
+            background-color: #fff; /* Change background color on hover */
+            color: #308deb; /* Change text color on hover */
+            transform: scale(1.1); /* Slightly increase size on hover */
+        }
+
+        /* Glowing Text Effect */
+        @keyframes glowing {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #308deb, 0 0 15px #308deb, 0 0 20px #308deb;
+            }
+
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 15px #308deb, 0 0 25px #308deb, 0 0 30px #308deb;
+            }
+        }
+
+        /* Slider Section Styles */
+        .slider-section {
+            width: 100%;
+            max-width: 1200px;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .slides {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slider-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            background-color: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .dot:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+            transform: scale(1.2);
+        }
+
+        .dot.active {
+            background-color: #308deb;
+            transform: scale(1.3);
+        }
+
+        /* Slide Content */
+        .slide-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 20px 30px;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            max-width: 80%;
+            font-style: italic;
+            animation: glowing 1.5s infinite alternate;
+        }
+
+        .slide-content h2 {
+            margin-bottom: 10px;
+            font-size: 28px;
+            font-family: 'Sora', sans-serif;
+        }
+
+        .slide-content p {
+            font-size: 18px;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header .logo {
+                max-height: 120px; /* Adjusted for smaller screens */
+            }
+
+            nav ul li {
+                margin-left: 20px;
+            }
+
+            .main-text {
+                font-size: 50px;
+            }
+
+            .additional-text {
+                font-size: 18px;
+            }
+
+            .slides {
+                height: 400px;
+            }
+
+            .slide-content h2 {
+                font-size: 22px;
+            }
+
+            .slide-content p {
+                font-size: 16px;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            nav ul {
+                position: absolute;
+                top: 100px; /* Adjusted to match header height */
+                right: 0;
+                background-color: #1e1e1e;
+                flex-direction: column;
+                width: 200px;
+                display: none;
+                padding: 10px 0;
+                border-radius: 0 0 0 10px;
+            }
+
+            nav ul.active {
+                display: flex;
+                animation: slideDown 0.5s ease-in-out;
+            }
+
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            nav ul li {
+                margin: 15px 0;
+                text-align: right;
+                margin-right: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <img src="logo-removebg-preview.png" alt="Logo" class="logo">
+            <nav>
+                <ul id="nav-links">
+                    <li><a href="project.html">Home</a></li>
+                    <li><a href="About Us.html">About Us</a></li>
+                    <li><a href="puzzle.html">Chemosynthesis Info</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content with Video Background -->
+    <main class="main-content" id="home">
+        <div class="video-background">
+            <video autoplay muted loop>
+                <source src="videoplayback (9).mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <h1 class="main-text">Chemosynthesis Plants</h1>
+        <p class="additional-text">Welcome To Our Website</p>
+        <a href="video.html" class="btn">View Videos</a>
+    </main>
+
+    <!-- Image Slider Section -->
+    <section class="slider-section" id="info">
+        <div class="slides">
+            <!-- Slide 1 -->
+            <div class="slide active" style="background-image: url('planet.png');">
+                <div class="slide-content">
+                    <h2>1. Subsurface Oceans of Icy Moons</h2>
+                    <p>Some moons in our Solar System, like Europa (Jupiter) and Enceladus (Saturn), may harbor life based on chemosynthesis. Europa's subsurface ocean, potentially warmed by hydrothermal vents, could support life even without sunlight, with oxygen possibly produced by radiolysis. Similarly, Enceladus has a subsurface ocean and water vapor plumes containing possible traces of oxygen, suggesting a similar potential for life near its ocean floor.</p>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" style="background-image: url('dfg.png');">
+                <div class="slide-content">
+                    <h2>Microbial Origin</h2>
+                    <p>Organisms: Thiobacillus, Sulfolobus, Methanococcus, etc. Requirements: Chemical compounds, water, nutrients. Adaptations: Enzymes for metabolizing inorganic compounds, tolerance to extreme conditions</p>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" style="background-image: url('fish.png');">
+                <div class="slide-content">
+                    <h2>Diverse Chemosynthetic Microbes</h2>
+                    <p>Organisms: Sulfur-oxidizing bacteria, Nitrobacter, Methanosarcina, etc. Requirements: Inorganic molecules (sulfur, iron, methane). Adaptations: Specialized chemical reactions, thriving in extreme environments</p>
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide" style="background-image: url('micro.png');">
+                <div class="slide-content">
+                    <h2>Simple Multicellular Organisms</h2>
+                    <p>Organisms: Tube Worms, Pompeii Worm, Yeti Crab, etc. Requirements: Symbiotic relationships with chemosynthetic bacteria. Adaptations: Symbiosis for energy, specialized organs</p>
+                </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="slide" style="background-image: url('minrobes.jpg');">
+                <div class="slide-content">
+                    <h2>5. Diverse Chemosynthetic Microbes</h2>
+                    <p>Sulfur-oxidizing bacteria and Methanosarcina thrive in extreme environments.</p>
+                </div>
+            </div>
+            <!-- Slide 6 -->
+            <div class="slide" style="background-image: url('pexels-leonardo-lamas-32247393-7001612.jpg');">
+                <div class="slide-content">
+                    <h2>6. Complex Aquatic Life</h2>
+                    <p>Organisms: Vent Fish, Chemosynthetic Starfish, Deep-sea Squid, etc. Requirements: Nutrient cycling, stable habitats. Adaptations: Enhanced mobility, complex behaviors</p>
+                </div>
+            </div>
+            <!-- Slide 7 -->
+            <div class="slide" style="background-image: url('sea.png');">
+                <div class="slide-content">
+                    <h2>7. Hypothetical Adapted Humans</h2>
+                    <p>Adaptations: Symbiosis with chemosynthetic bacteria, technological energy extraction. Requirements: Chemosynthetic energy sources, adaptation to extreme environments</p>
+                </div>
+            </div>
+            <!-- Slide 8 -->
+            <div class="slide" style="background-image: url('pomp.png');">
+                <div class="slide-content">
+                    <h2>8. Pompeii Worms</h2>
+                    <p>Known for their extreme heat tolerance, they also live around hydrothermal vents.</p>
+                </div>
+            </div>
+            <!-- Slide 9 -->
+            <div class="slide" style="background-image: url('pexels-wwarby-19599903.jpg');">
+                <div class="slide-content">
+                    <h2>9. Chemosynthetic Shrimp</h2>
+                    <p>These shrimp form symbiotic relationships with chemosynthetic bacteria.</p>
+                </div>
+            </div>
+            <!-- Slide 10 -->
+            <div class="slide" style="background-image: url('pexels-pixabay-62307.jpg');">
+                <div class="slide-content">
+                    <h2>10. Conclusion</h2>
+                    <p>Subsurface environments like those on Europa and Enceladus offer compelling analogs for life.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dots -->
+        <div class="slider-dots">
+            <span class="dot active" data-index="0" aria-label="Slide 1"></span>
+            <span class="dot" data-index="1" aria-label="Slide 2"></span>
+            <span class="dot" data-index="2" aria-label="Slide 3"></span>
+            <span class="dot" data-index="3" aria-label="Slide 4"></span>
+            <span class="dot" data-index="4" aria-label="Slide 5"></span>
+            <span class="dot" data-index="5" aria-label="Slide 6"></span>
+            <span class="dot" data-index="6" aria-label="Slide 7"></span>
+            <span class="dot" data-index="7" aria-label="Slide 8"></span>
+            <span class="dot" data-index="8" aria-label="Slide 9"></span>
+            <span class="dot" data-index="9" aria-label="Slide 10"></span>
+        </div>
+    </section>
+    <!-- Image Slider Section Ends Here -->
+
+    <!-- Footer -->
+    <!-- jQuery Library (Required for Slider) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Slider JavaScript -->
+    <script>
+        $(document).ready(function () {
+            const slides = $('.slide');
+            const dots = $('.dot');
+            const totalSlides = slides.length;
+            let currentIndex = 0;
+            const slideInterval = 10000; // 10 seconds
+            let intervalId;
+
+            // Function to show a specific slide
+            function showSlide(index) {
+                slides.removeClass('active').css('opacity', '0');
+                dots.removeClass('active');
+                slides.eq(index).addClass('active').css('opacity', '1');
+                dots.eq(index).addClass('active');
+                currentIndex = index;
+            }
+
+            // Function to show the next slide
+            function nextSlide() {
+                let nextIndex = (currentIndex + 1) % totalSlides;
+                showSlide(nextIndex);
+            }
+
+            // Function to start the slideshow
+            function startSlideshow() {
+                intervalId = setInterval(nextSlide, slideInterval);
+            }
+            // Function to stop the slideshow
+            function stopSlideshow() {
+                clearInterval(intervalId);
+            }
+
+            // Start the slideshow
+            startSlideshow();
+
+            // Dot click event
+            dots.on('click', function () {
+                stopSlideshow(); // Stop the current slideshow
+                let index = $(this).data('index'); // Get the index of the clicked dot
+                showSlide(index); // Show the corresponding slide
+                startSlideshow(); // Restart the slideshow
+            });
+
+            // Pause on hover
+            $('.slider-section').hover(
+                function () {
+                    stopSlideshow();
+                },
+                function () {
+                    startSlideshow();
+                }
+            );
+        });
+    </script>
+
+    <!-- JavaScript for Header Scroll Effect and Hamburger Menu -->
+    <script>
+        // Toggle Hamburger Menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Change Header style on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
