@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chemosynthesis Quiz</title>
     <link rel="stylesheet" href="quiz.css">
 </head>
+
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <img src="logo-removebg-preview.png" alt="Chemosynthesis Quiz Logo" class="logo">
         <ul class="nav-links">
-            <li><a href="project.html">Home</a></li>
+            <li><a href="index.html">Home</a></li>
             <li><a href="About_Us.html">About Us</a></li>
             <li><a href="puzzle.html">Chemosynthesis Info</a></li>
             <li><a href="quiz.html">Quiz</a></li>
@@ -173,7 +175,7 @@
             document.getElementById('end-page').classList.remove('hidden');
             document.getElementById('final-score').innerText = score;
             alert(`You answered ${incorrectCount} questions incorrectly. Your final score is ${score} Coins.`);
-        }3
+        } 3
 
         function restartQuiz() {
             currentQuestionIndex = 0;
@@ -185,4 +187,5 @@
         }
     </script>
 </body>
+
 </html>
